@@ -1,6 +1,8 @@
 "use client"
 
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Client } from 'appwrite';
 import {
   MeetingProvider,
   MeetingConsumer,
@@ -10,7 +12,8 @@ import {
 import { authToken, createMeeting } from "@/app/api/videosdk";
 import ReactPlayer from "react-player";
 
-
+const client = new Client();
+client.setProject('678aa1b20034bcb0afd1');
 
 function JoinScreen({ getMeetingAndToken }: { getMeetingAndToken: (id: string | null) => Promise<void> }) {
   const [meetingId, setMeetingId] = useState<string | null>(null);
