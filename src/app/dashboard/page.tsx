@@ -4,7 +4,7 @@ import Sidebar from '@/components/Sidebar'
 import Header from "@/components/Header"
 import Schedule  from "@/components/Schedule"
 
-export function Dashboard() {
+export default function Dashboard() {
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar />

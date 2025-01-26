@@ -1,4 +1,3 @@
-import { Dashboard } from "@/components/dashboard";
 import App from "./App";
 
 
