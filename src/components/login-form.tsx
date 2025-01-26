@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { account, ID } from './lib/appwrite';
-
-  if (!isClient) {
-    return null;
-  }
+import { client, account } from "@/app/lib/appwrite.js"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,18 +11,27 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-interface LoginFormProps extends React.ComponentPropsWithoutRef<"div">{
-  email: string;
-  password: string;
+async function handleLogin(formData: FormData){
+  "use server"
+  const email = formData.get("email") as string
+  const password = formData.get("password") as string
+
+  const promise = account.createEmailPasswordSession(email, password);
+
+  promise.then(function (response) {
+      // console.log(response); // Success
+      console.log("logged in!")
+  }, function (error) {
+      console.log(error); // Failure
+  });
+
+  console.log(email, password)
 }
 
 export function LoginForm({
   className,
-  email,
-  password,
   ...props
-}: LoginFormProps) 
-
+}: React.ComponentPropsWithoutRef<"div">)   
 {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -39,12 +43,13 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="m@example.com"
                   required
@@ -60,7 +65,11 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input 
+                id="password" 
+                name="password"
+                type="password" 
+                required />
               </div>
               <Button type="submit" className="w-full">
                 Login
