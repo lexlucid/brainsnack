@@ -1,4 +1,8 @@
+"use client"
+
 import { client, account } from "@/app/lib/appwrite.js"
+import { useRouter } from 'next/navigation'
+import { handleLogin } from "@/app/lib/actions"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,28 +15,29 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-async function handleLogin(formData: FormData){
-  "use server"
-  const email = formData.get("email") as string
-  const password = formData.get("password") as string
+// async function handleLogin(formData: FormData){
+//   "use server"
+//   const email = formData.get("email") as string
+//   const password = formData.get("password") as string
 
-  const promise = account.createEmailPasswordSession(email, password);
+//   const promise = account.createEmailPasswordSession(email, password);
 
-  promise.then(function (response) {
-      // console.log(response); // Success
-      console.log("logged in!")
-  }, function (error) {
-      console.log(error); // Failure
-  });
+//   promise.then(function (response) {
+//       // console.log(response); // Success
+//       console.log("logged in!")
+//   }, function (error) {
+//       console.log(error); // Failure
+//   });
 
-  console.log(email, password)
-}
+  
+
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">)   
 {
+  const router = useRouter()
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -71,7 +76,7 @@ export function LoginForm({
                 type="password" 
                 required />
               </div>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" onClick={() => router.push('/dashboard')}>
                 Login
               </Button>
               {/* <Button variant="outline" className="w-full">

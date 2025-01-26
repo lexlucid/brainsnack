@@ -1,43 +1,35 @@
-"use client"
+"use client" 
 
 import React, { useState, useEffect } from 'react';
 import { account, ID } from './lib/appwrite';
+import { Dashboard } from '@/components/dashboard';
+import { useRouter } from 'next/navigation';
 
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    const checkUser = async () => {
+      try {
+        const user = await account.get();
+        console.log('User data:', user);
+        setLoggedInUser(user);
+      } catch (error) {
+        console.log('Auth error:', error);
+        router.push('/login')
+      }
+    }
+    checkUser()
+  }, [])
+ 
+  console.log('Current loggedInUser state:', loggedInUser);
 
-  async function login(email, password) {
-    await account.createEmailPasswordSession(email, password);
-    setLoggedInUser(await account.get());
+  if (!loggedInUser) {
+    return null
   }
 
-  if (!isClient) {
-    return null;
-  }
-
-  return (
-    <div>
-      <p>
-        {loggedInUser ? `Logged in as ${loggedInUser.name}` : 'Not logged in'}
-      </p>
-      <form>
-        <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-        <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-        <button type="button" onClick={() => login(email, password)}>
-          Login
-        </button>
-      </form>
-    </div>
-  );
+  return <Dashboard />;
 };
 
 export default App;
