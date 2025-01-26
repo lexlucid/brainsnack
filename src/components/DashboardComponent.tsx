@@ -1,7 +1,7 @@
 'use client'
 
 import Sidebar from "./Sidebar"
-import Header from "./Header"
+import Header from "./Navbar"
 import Schedule  from "./Schedule"
 
 export function DashboardComponent() {

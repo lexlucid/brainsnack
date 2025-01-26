@@ -3,10 +3,12 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { LogOutIcon } from "lucide-react"
 import { userInfo } from "os"
+import Link from 'next/link'
 
 export default function Header () {
   const user = useUser()
-  console.log(user.current)
+
+
    return (
     <header className="flex items-center justify-between px-6 py-4 bg-white shadow">
           <h2 className="text-xl font-semibold text-gray-800">Today's Schedule</h2>
@@ -16,7 +18,7 @@ export default function Header () {
               <AvatarImage src="/placeholder.svg?height=32&width=32" alt={`Avatar image for ${user.current?.name}`} />  
               <AvatarFallback>{user.current?.name?.charAt(0)}</AvatarFallback>
             </Avatar>
-            <Button variant="ghost" size="icon" className="ml-2">
+            <Button variant="ghost" size="icon" className="ml-2" onClick={user.logout}>
               <LogOutIcon className="h-5 w-5" />
               <span className="sr-only">Log out</span>
             </Button>

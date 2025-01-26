@@ -20,11 +20,12 @@ export function UserProvider(props) {
   async function logout() {
     await account.deleteSession("current");
     setUser(null);
+    window.location.replace("/");
   }
 
-  async function register(email, password) {
-    await account.create(ID.unique(), email, password);
-    await login(email, password);
+  async function register(email, password, name) {
+    await account.create(ID.unique(), email, password, name);
+    await login(email, password, name);
   }
 
   async function init() {

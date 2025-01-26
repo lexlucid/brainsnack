@@ -1,7 +1,7 @@
 'use client'
 
 import Sidebar from '@/components/Sidebar'
-import Header from "@/components/Header"
+import Navbar from "@/components/Navbar"
 import Schedule  from "@/components/Schedule"
 
 export default function Dashboard() {
@@ -13,7 +13,7 @@ export default function Dashboard() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <Header />
+        <Navbar />
 
         {/* Schedule */}
         <Schedule />
