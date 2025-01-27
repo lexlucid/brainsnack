@@ -20,7 +20,7 @@ export function UserProvider(props) {
   async function logout() {
     await account.deleteSession("current");
     setUser(null);
-    window.location.replace("/");
+    window.location.replace("/login");
   }
 
   async function register(email, password, name) {

@@ -1,13 +1,16 @@
+"use client"
+
 import { LoginForm } from "@/components/LoginForm"
+import { UserProvider } from "../lib/context/user"
 
-
-
-export default function Page() {
+export default function LoginPage() {
   return (
+    <UserProvider>
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
         <LoginForm/>
       </div>
     </div>
+  </UserProvider>
   )
 }

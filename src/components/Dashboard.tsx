@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar"
 import Header from "./Navbar"
 import Schedule  from "./Schedule"
 
-export function DashboardComponent() {
+export function Dashboard() {
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
