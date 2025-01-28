@@ -1,8 +1,10 @@
 import { ID } from "appwrite";
 import { createContext, useContext, useEffect, useState } from "react";
 import { account } from "../appwrite";
+import { useRouter } from "next/compat/router";
 
 const UserContext = createContext();
+
 
 export function useUser() {
   return useContext(UserContext);
@@ -10,17 +12,19 @@ export function useUser() {
 
 export function UserProvider(props) {
   const [user, setUser] = useState(null);
+  const router = useRouter();
 
   async function login(email, password) {
     const loggedIn = await account.createEmailPasswordSession(email, password);
     setUser(loggedIn);
-    window.location.replace("/");
+    router.push("/dashboard")
   }
 
   async function logout() {
     await account.deleteSession("current");
     setUser(null);
-    window.location.replace("/login");
+    router.push("/login")
+    // window.location.replace("/login");
   }
 
   async function register(email, password, name) {
