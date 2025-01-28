@@ -2,8 +2,7 @@ import { useUser } from "@/app/lib/context/user"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { LogOutIcon } from "lucide-react"
-import { userInfo } from "os"
-import Link from 'next/link'
+
 
 export default function Header () {
   const { current, logout } = useUser()
