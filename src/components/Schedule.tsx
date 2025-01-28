@@ -18,43 +18,43 @@ const sessions = [
 
 export default function Schedule () {
 
-    function MeetingView(props: MeetingViewProps) {
-        const [joined, setJoined] = useState<"JOINED" | "JOINING" | null>(null);
-        const { join } = useMeeting();
-        const { participants } = useMeeting({
-            onMeetingJoined: () => {
-                setJoined("JOINED");
-            },
-            onMeetingLeft: () => {
-                props.onMeetingLeave();
-            },
-        });
-        const joinMeeting = () => {
-            setJoined("JOINING");
-            join();
-        };
+    // function MeetingView(props: MeetingViewProps) {
+    //     const [joined, setJoined] = useState<"JOINED" | "JOINING" | null>(null);
+    //     const { join } = useMeeting();
+    //     const { participants } = useMeeting({
+    //         onMeetingJoined: () => {
+    //             setJoined("JOINED");
+    //         },
+    //         onMeetingLeft: () => {
+    //             props.onMeetingLeave();
+    //         },
+    //     });
+    //     const joinMeeting = () => {
+    //         setJoined("JOINING");
+    //         join();
+    //     };
     
-        return (
-            <div className="container">
-                <h3>Meeting Id: {props.meetingId}</h3>
-                {joined && joined === "JOINED" ? (
-                    <div>
-                        <Controls />
-                        {[...participants.keys()].map((participantId) => (
-                            <ParticipantView
-                                participantId={participantId}
-                                key={participantId}
-                            />
-                        ))}
-                    </div>
-                ) : joined && joined === "JOINING" ? (
-                    <p>Joining the meeting...</p>
-                ) : (
-                    <button onClick={joinMeeting}>Join</button>
-                )}
-            </div>
-        );
-    }
+    //     return (
+    //         <div className="container">
+    //             <h3>Meeting Id: {props.meetingId}</h3>
+    //             {joined && joined === "JOINED" ? (
+    //                 <div>
+    //                     <Controls />
+    //                     {[...participants.keys()].map((participantId) => (
+    //                         <ParticipantView
+    //                             participantId={participantId}
+    //                             key={participantId}
+    //                         />
+    //                     ))}
+    //                 </div>
+    //             ) : joined && joined === "JOINING" ? (
+    //                 <p>Joining the meeting...</p>
+    //             ) : (
+    //                 <button onClick={joinMeeting}>Join</button>
+    //             )}
+    //         </div>
+    //     );
+    // }
     return (     
     <main className="flex-1 overflow-y-auto p-6">
     <div className="grid gap-6">
