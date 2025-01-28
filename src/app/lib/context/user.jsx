@@ -23,8 +23,7 @@ export function UserProvider(props) {
   async function logout() {
     await account.deleteSession("current");
     setUser(null);
-    router.push("/login")
-    // window.location.replace("/login");
+    window.location.replace("/login");
   }
 
   async function register(email, password, name) {

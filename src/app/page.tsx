@@ -4,6 +4,7 @@ import { useUser } from './lib/context/user'
 import { useRouter } from 'next/navigation'
 import DashboardPage from './dashboard/page'
 import LoginPage from './login/page'
+import { Spinner } from '@/components/ui/spinner'
 
 export default function Home() {
     const { current } = useUser()
@@ -25,7 +26,11 @@ export default function Home() {
     }, [current, router])
 
     if (isLoading) {
-        return <div>Loading...</div>
+        return (
+            <div className="flex min-h-screen items-center justify-center">
+                <Spinner size="lg" className="bg-black dark:bg-white" />
+            </div>
+        )
     }
 
   return (
