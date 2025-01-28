@@ -15,9 +15,22 @@ export function UserProvider(props) {
   const router = useRouter();
 
   async function login(email, password) {
-    const loggedIn = await account.createEmailPasswordSession(email, password);
-    setUser(loggedIn);
-    router.push("/dashboard")
+    try {
+      const currentSession = await account.get()
+      if (currentSession) {
+        window.location.href = "/dashboard"
+        return
+      }
+      const loggedIn = await account.createEmailPasswordSession(email, password);
+      setUser(loggedIn);
+      window.location.href = "/dashboard";
+    } catch (error) {
+      if (error.type !== "user_session_already_exists") {
+        console.error("Login error:", error);
+        throw error;
+      }
+      window.location.href = "/dashboard";
+    }
   }
 
   async function logout() {
