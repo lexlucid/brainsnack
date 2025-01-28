@@ -1,7 +1,7 @@
 import { ID } from "appwrite";
 import { createContext, useContext, useEffect, useState } from "react";
 import { account } from "../appwrite";
-import { useRouter } from "next/compat/router";
+
 
 const UserContext = createContext();
 
@@ -12,7 +12,8 @@ export function useUser() {
 
 export function UserProvider(props) {
   const [user, setUser] = useState(null);
-  const router = useRouter();
+  const [isLoading, setisLoading] = useState(true);
+
 
   async function login(email, password) {
     try {
@@ -50,12 +51,19 @@ export function UserProvider(props) {
       setUser(loggedIn);
     } catch (err) {
       setUser(null);
+      window.location.href = '/login'
+    } finally {
+      setisLoading(false)
     }
   }
 
   useEffect(() => {
     init();
   }, []);
+
+  // if (isLoading) {
+  //   return null
+  // }
 
   return (
     <UserContext.Provider value={{ current: user, login, logout, register }}>
