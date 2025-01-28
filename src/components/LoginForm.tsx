@@ -1,6 +1,7 @@
 "use client"
 
 import { useUser } from '@/app/lib/context/user'
+import { account } from '@/app/lib/appwrite'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -13,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+console.log('Appwrite client initialized:', !!account);
 
 export function LoginForm({
   className,
@@ -24,9 +26,14 @@ export function LoginForm({
 
 
   async function handleLogin(formData : FormData) {
-    const email = formData.get("email") as string
-    const password = formData.get("password") as string
-    await login(email, password)
+    try {
+      const email = formData.get("email") as string
+      const password = formData.get("password") as string
+      await login(email, password)
+      console.log('Attempting login with:', email);
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   }
 
   return (
@@ -39,7 +46,13 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={handleLogin}>
+          <form 
+            action={handleLogin}
+            onSubmit={(e) => {
+              console.log('Form submitted');
+              e.preventDefault();
+            }}
+          >
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
