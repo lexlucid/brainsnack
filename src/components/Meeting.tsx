@@ -177,6 +177,7 @@ const getMeetingAndToken: GetMeetingAndTokenProps = async (id) => {
         micEnabled: true,
         webcamEnabled: true,
         name: "C.V. Raman",
+        debugMode: false
       }}
       token={authToken}
     >
