@@ -11,9 +11,9 @@ export const databases = new Databases(client);
 
 let promise = databases.listDocuments(
     process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
-    process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_MEETINGS_ID,
+    process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_SESSIONS_ID,
     [
-        Query.select(['meeting_title', 'meeting_id'])
+        Query.select(['session_title', 'session_id'])
     ]
 );
 

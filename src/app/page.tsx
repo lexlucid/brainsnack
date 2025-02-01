@@ -12,18 +12,12 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        try {
-            if (!current) {
-                router.push('/login')
-            } else {
-                router.push('/dashboard')
-            }
-        } catch {
+        if (!current) {
             router.push('/login')
-        } finally {
-            setIsLoading(false)
+        } else {
+            router.push('/dashboard')
         }
-    }, [current, router])
+    })
 
     if (isLoading) {
         return (

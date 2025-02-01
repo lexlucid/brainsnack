@@ -12,16 +12,9 @@ export function useUser() {
 
 export function UserProvider(props) {
   const [user, setUser] = useState(null);
-  const [isLoading, setisLoading] = useState(true);
-
 
   async function login(email, password) {
     try {
-      const currentSession = await account.get()
-      if (currentSession) {
-        window.location.href = "/dashboard"
-        return
-      }
       const loggedIn = await account.createEmailPasswordSession(email, password);
       setUser(loggedIn);
       window.location.href = "/dashboard";
@@ -51,19 +44,11 @@ export function UserProvider(props) {
       setUser(loggedIn);
     } catch (err) {
       setUser(null);
-      window.location.href = '/login'
-    } finally {
-      setisLoading(false)
     }
   }
-
   useEffect(() => {
     init();
   }, []);
-
-  // if (isLoading) {
-  //   return null
-  // }
 
   return (
     <UserContext.Provider value={{ current: user, login, logout, register }}>
