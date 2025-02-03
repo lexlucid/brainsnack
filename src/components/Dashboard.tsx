@@ -3,6 +3,7 @@
 import Sidebar from "./Sidebar"
 import Header from "./Navbar"
 import Schedule  from "./Schedule"
+import CreateSessionForm from "./CreateSessionForm"
 
 export function Dashboard() {
   return (
@@ -15,6 +16,8 @@ export function Dashboard() {
         {/* Header */}
         <Header />
 
+      <CreateSessionForm />
+      
         {/* Schedule */}
         <Schedule />
       </div>
