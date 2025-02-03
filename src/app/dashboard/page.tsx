@@ -1,10 +1,10 @@
 'use client'
 
-import { Dashboard } from "@/components/Dashboard"
+import Schedule from "@/components/Schedule"
 
 export default function DashboardPage() {
   return (
-    <Dashboard />
+    <Schedule />
   )
 }
 
