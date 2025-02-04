@@ -3,28 +3,28 @@ import { databases } from "../appwrite";
 import { ID, Query } from "appwrite";
 
 export const BRAINSNACK_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID; // Replace with your database ID
-export const SESSIONS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_SESSIONS_ID; // Replace with your collection ID
+export const MEETINGS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_MEETINGS_ID; // Replace with your collection ID
 
 
-const SessionsContext = createContext();
+const MeetingsContext = createContext();
 
 
-export function useSessions() {
-  return useContext(SessionsContext);
+export function useMeetings() {
+  return useContext(MeetingsContext);
 }
 
-export function SessionsProvider(props) {
-  const [sessions, setSessions] = useState([]);
+export function MeetingsProvider(props) {
+  const [Meetings, setMeetings] = useState([]);
 
-  async function add(session) { 
+  async function add(meeting) { 
     try {
       const response = await databases.createDocument(
         BRAINSNACK_DATABASE_ID,
-        SESSIONS_COLLECTION_ID,
+        MEETINGS_COLLECTION_ID,
         ID.unique(),
-        session
+        meeting
       );
-      setSessions((session) => console.log(response, session));
+      setMeetings((meeting) => console.log(response, meeting));
     } catch (err) {
       console.log(err) // handle error or show user a message
     }
@@ -32,8 +32,8 @@ export function SessionsProvider(props) {
 
   async function remove(id) {
     try {
-      await databases.deleteDocument(BRAINSNACK_DATABASE_ID, SESSIONS_COLLECTION_ID, id);
-      setSessions((sessions) => sessions.filter((session) => session.$id !== id));
+      await databases.deleteDocument(BRAINSNACK_DATABASE_ID, MEETINGS_COLLECTION_ID, id);
+      setMeetings((Meetings) => Meetings.filter((meeting) => meeting.$id !== id));
       await init();
     } catch (err) {
       console.log(err)
@@ -44,10 +44,10 @@ export function SessionsProvider(props) {
     try {
       const response = await databases.listDocuments(
         BRAINSNACK_DATABASE_ID,
-        SESSIONS_COLLECTION_ID,
+        MEETINGS_COLLECTION_ID,
         [Query.orderDesc("$createdAt"), Query.limit(10)]
       );
-      setSessions(response.documents);
+      setMeetings(response.documents);
     } catch (err) {
       console.log(err)
     }
@@ -58,8 +58,8 @@ export function SessionsProvider(props) {
   }, []);
 
   return (
-    <SessionsContext.Provider value={{ current: sessions, add, remove }}>
+    <MeetingsContext.Provider value={{ current: Meetings, add, remove }}>
       {props.children}
-    </SessionsContext.Provider>
+    </MeetingsContext.Provider>
   );
 }

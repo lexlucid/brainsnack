@@ -3,7 +3,7 @@
 import Sidebar from "./Sidebar"
 import Header from "./Navbar"
 import Schedule  from "./Schedule"
-import CreateSessionForm from "./CreateSessionForm"
+import CreateSessionForm from "./ScheduleMeetingForm"
 
 export function Dashboard() {
   return (

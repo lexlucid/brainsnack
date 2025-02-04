@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useMeetings} from "@/app/lib/context/meetings"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 
@@ -13,15 +14,24 @@ import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-export default function CreateSessionForm() {
-  const [title, setTitle] = useState("")
-  const [date, setDate] = useState<Date>()
+
+export default function ScheduleMeetingForm() {
+  const [meetingTitle, setMeetingTitle] = useState("")
+  const [meetingDate, setmeetingDate] = useState<Date>()
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
 
+  const meetings = useMeetings()
+
+//  async function handleMeetingsCreation(formData : FormData) {
+//   try {
+    
+//   }
+//  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log({ title, date, startTime, endTime })
+    console.log({ meetingTitle, meetingDate, startTime, endTime })
     // Here you would typically send this data to your backend
   }
 
@@ -29,7 +39,7 @@ export default function CreateSessionForm() {
     <Card className="w-full max-w-md mx-auto">
       <form onSubmit={handleSubmit}>
         <CardHeader>
-          <CardTitle>Create Session</CardTitle>
+          <CardTitle>Schedule Meetings</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -37,25 +47,25 @@ export default function CreateSessionForm() {
             <Input
               id="title"
               placeholder="Enter session title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={meetingTitle}
+              onChange={(e) => setMeetingTitle(e.target.value)}
               required
             />
           </div>
           <div className="space-y-2">
-            <Label>Date</Label>
+            <Label>meetingDate</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
-                  className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
+                  className={cn("w-full justify-start text-left font-normal", !meetingDate && "text-muted-foreground")}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                  {meetingDate ? format(meetingDate, "PPP") : <span>Pick a meetingDate</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
-                <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                <Calendar mode="single" selected={meetingDate} onSelect={setmeetingDate} initialFocus />
               </PopoverContent>
             </Popover>
           </div>

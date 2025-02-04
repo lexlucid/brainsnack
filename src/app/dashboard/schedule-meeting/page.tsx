@@ -1,6 +1,6 @@
 "use client"
 
-import CreateSessionForm from "@/components/CreateSessionForm"
+import CreateSessionForm from "@/components/ScheduleMeetingForm"
 
 export default function CreateSessionPage() {
     return (

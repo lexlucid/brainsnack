@@ -9,7 +9,7 @@ export default function Sidebar () {
         <nav className="mt-6">
           {[
             { icon: HomeIcon, label: "Dashboard", url: "/dashboard" },
-            { icon: CalendarPlus, label: "Create Session", url: "/dashboard/create-session"},
+            { icon: CalendarPlus, label: "Create Session", url: "/dashboard/create-meeting"},
             { icon: CalendarIcon, label: "Schedule" },
             { icon: UsersIcon, label: "Members" },
             { icon: SettingsIcon, label: "Settings" },
